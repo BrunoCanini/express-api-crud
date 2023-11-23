@@ -2,8 +2,17 @@ const {PrismaClient} = require("@prisma/client");
 const prisma = new PrismaClient();
 
 async function index(req, res){
+    const filtri = {}
+    const {parola} = req.query
+    if(parola){
+        filtri.title= {
+            contains: parola
+        }
+    }
 
-    const data = await prisma.post.findMany()
+    const data = await prisma.post.findMany({
+        where: filtri
+    })
     // console.log(data)
     return res.json(data)
 }
