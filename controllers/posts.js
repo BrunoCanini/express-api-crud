@@ -10,11 +10,11 @@ async function index(req, res){
 
 async function show(req, res){
     
-    const id = req.params.id;
+    const slug = req.params.slug;
 
     const data = await prisma.post.findUnique({
         where: {
-            id: parseInt(id),
+            slug: slug,
         },
     })
 
@@ -44,12 +44,12 @@ async function store(req, res){
 
 async function update(req, res){
     
-    const id = req.params.id;
+    const slug = req.params.slug;
     const datiIngresso = req.body;
 
     const post = await prisma.post.findUnique({
         where:{
-            id: parseInt(id),
+            slug: slug,
         }
     })
 
@@ -60,7 +60,7 @@ async function update(req, res){
     const pizzaAggiornata = await prisma.post.update({
         data: datiIngresso,
         where: {
-            id: parseInt(id),
+            slug: slug,
         }
     })
 
@@ -72,7 +72,7 @@ async function destroy(req, res){
     
     await prisma.post.delete({
         where:{
-            id: parseInt(req.params.id)
+            slug: req.params.slug
         }
     });
 
