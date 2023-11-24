@@ -3,7 +3,14 @@ const prisma = new PrismaClient();
 
 async function index(req, res){
     const filtri = {}
-    const {parola} = req.query
+    const {parola, published} = req.query
+
+    if(published){
+        const boolpublished = published == "true"
+        filtri.published = boolpublished
+    
+    }
+
     if(parola){
         filtri.title= {
             contains: parola
